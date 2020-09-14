@@ -50,6 +50,7 @@ export default {
     products: [],
     chart: null,
     lineSeries: null,
+    price: 0,
   }),
 
   components: {
@@ -84,12 +85,14 @@ export default {
 
     loadProduct(product) {
       axios.get('http://157.245.135.17:3000/timeSeries/' + product).then(data => {
-        const price = data["data"][0]["value"]
-        this.chart.applyOptions({
+        this.price = data["data"][0]["value"]
+
+        this.chart.removeSeries(this.lineSeries)
+        this.lineSeries = this.chart.addLineSeries({
           autoscaleInfoProvider: () => ({
             priceRange: {
-              minValue: price - (price * .10),
-              maxValue: price + (price * .10),
+              minValue: this.price - (this.price * .10),
+              maxValue: this.price + (this.price * .10),
             },
 
             margins: {

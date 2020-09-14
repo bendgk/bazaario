@@ -15,7 +15,7 @@
                 <v-list-item-content>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
-                      <v-list-item-title v-on="on" v-bind="attrs"> {{ item }} </v-list-item-title>
+                      <v-list-item-title v-on="on" v-bind="attrs" v-on:click="console.log('test')"> {{ item }} </v-list-item-title>
                     </template>
                     <span>
                       {{item}} //TODO: SHOW MORE INFO

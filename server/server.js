@@ -5,7 +5,7 @@ const port = 3000
 
 //headers
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+  res.setHeader('Access-Control-Allow-Origin', 'http://157.245.135.17:8080');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization,Access-Control-Allow-Origin');
   res.setHeader('Access-Control-Allow-Credentials', true);

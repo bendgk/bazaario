@@ -76,11 +76,11 @@ export default {
     },
 
     getProducts() {
-      axios.get('http://127.0.0.1:3000/getProducts').then(data => {
+      axios.get('http://157.245.135.17:3000/getProducts').then(data => {
         this.products = data["data"]
       })
 
-      axios.get('http://127.0.0.1:3000/timeSeries/GRAVEL').then(data => {
+      axios.get('http://157.245.135.17:3000/timeSeries/GRAVEL').then(data => {
         console.log(data["data"])
         this.lineSeries.setData(data["data"])
       })

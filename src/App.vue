@@ -90,7 +90,7 @@ export default {
           autoscaleInfoProvider: () => ({
             priceRange: {
               minValue: price - (price * .10),
-              maxValue: price - (price * .10),
+              maxValue: price + (price * .10),
             },
 
             margins: {

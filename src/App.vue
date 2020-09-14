@@ -84,7 +84,21 @@ export default {
 
     loadProduct(product) {
       axios.get('http://157.245.135.17:3000/timeSeries/' + product).then(data => {
-        console.log(data["data"])
+        const price = data["data"][0]["value"]
+        this.chart.removeSeries(this.lineSeries);
+        this.lineSeries = this.chart.addLineSeries({
+          autoscaleInfoProvider: () => ({
+            priceRange: {
+              minValue: price - (price * .10),
+              maxValue: price - (price * .10),
+            },
+
+            margins: {
+              above: 10,
+              below: 10,
+            }
+          })
+        });
         this.lineSeries.setData(data["data"])
       })
     }

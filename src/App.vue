@@ -15,7 +15,7 @@
                 <v-list-item-content>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
-                      <v-list-item-title v-on="on" v-bind="attrs" v-on:click="console.log('test')"> {{ item }} </v-list-item-title>
+                      <v-list-item-title v-on="on" v-bind="attrs" v-on:click="loadProduct(item)"> {{ item }} </v-list-item-title>
                     </template>
                     <span>
                       {{item}} //TODO: SHOW MORE INFO
@@ -69,6 +69,7 @@ export default {
   destroyed() {
     window.removeEventListener("resize", this.resizeEventHandler);
   },
+
   methods: {
     resizeEventHandler(e) {
       console.log(this.products)
@@ -79,8 +80,10 @@ export default {
       axios.get('http://157.245.135.17:3000/getProducts').then(data => {
         this.products = data["data"]
       })
+    },
 
-      axios.get('http://157.245.135.17:3000/timeSeries/GRAVEL').then(data => {
+    loadProduct(product) {
+      axios.get('http://157.245.135.17:3000/timeSeries/' + product).then(data => {
         console.log(data["data"])
         this.lineSeries.setData(data["data"])
       })

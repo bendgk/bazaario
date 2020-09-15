@@ -1,38 +1,45 @@
 <template>
   <v-app id="app" class="grey--color">
-    <v-row>
-      <v-col class="col-3">
-        <v-card>
-          <v-text-field label="Search" single-line outlined v-model="searchTerm" @input="searchHandler" clearable>
-          </v-text-field>
-          <v-virtual-scroll
-            :items="visibleProducts"
-            height="600"
-            item-height="42"
-          >
-            <template v-slot="{ item }">
-              <v-list-item :key="item">
-                <v-list-item-content>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-list-item-title v-on="on" v-bind="attrs" v-on:click="loadProduct(item)"> {{ item }} </v-list-item-title>
-                    </template>
-                    <span>
-                      {{item}} //TODO: SHOW MORE INFO
-                    </span>
-                  </v-tooltip>
-                  <v-divider></v-divider>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
-          </v-virtual-scroll>
-        </v-card>
-      </v-col>
-      <v-col class="col-9">
-        <h1>Bazaario</h1>
-        <div id="graph"></div>
-      </v-col>
-    </v-row>
+    <v-app-bar dark dense>
+      <v-toolbar-title>Bazaario</v-toolbar-title>
+    </v-app-bar>
+    <v-main>
+      <v-container fluid class="fill-height">
+        <v-row>
+          <v-col class="col-3">
+            <v-card>
+              <v-text-field label="Search" single-line outlined v-model="searchTerm" @input="searchHandler" clearable>
+              </v-text-field>
+              <v-virtual-scroll
+                :items="visibleProducts"
+                height="600"
+                item-height="42"
+              >
+                <template v-slot="{ item }">
+                  <v-list-item :key="item">
+                    <v-list-item-content>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-list-item-title v-on="on" v-bind="attrs" v-on:click="loadProduct(item)"> {{ item }} </v-list-item-title>
+                        </template>
+                        <span>
+                          {{item}} //TODO: SHOW MORE INFO
+                        </span>
+                      </v-tooltip>
+                      <v-divider></v-divider>
+                    </v-list-item-content>
+                  </v-list-item>
+                </template>
+              </v-virtual-scroll>
+            </v-card>
+          </v-col>
+          <v-col class="col-9">
+            <h1>{{ selectedProduct }}</h1>
+            <div id="graph"></div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
@@ -53,6 +60,7 @@ export default {
     lineSeries: null,
     price: 0,
     searchTerm: "",
+    selectedProduct: "Bazaario",
   }),
 
   components: {
@@ -87,6 +95,7 @@ export default {
     },
 
     loadProduct(product) {
+      this.selectedProduct = product
       axios.get('http://157.245.135.17:3000/timeSeries/' + product).then(data => {
         this.price = data["data"][0]["value"]
 

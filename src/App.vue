@@ -3,10 +3,10 @@
     <v-row>
       <v-col class="col-3">
         <v-card>
-          <v-text-field label="Search" single-line outlined>
+          <v-text-field label="Search" single-line outlined v-model="searchTerm" @input="searchHandler">
           </v-text-field>
           <v-virtual-scroll
-            :items="products"
+            :items="visibleProducts"
             height="600"
             item-height="42"
           >
@@ -48,9 +48,11 @@ export default {
 
   data: () => ({
     products: [],
+    visibleProducts: [],
     chart: null,
     lineSeries: null,
     price: 0,
+    searchTerm: "",
   }),
 
   components: {
@@ -80,6 +82,7 @@ export default {
     getProducts() {
       axios.get('http://157.245.135.17:3000/getProducts').then(data => {
         this.products = data["data"]
+        this.visibleProducts = data["data"]
       })
     },
 
@@ -102,6 +105,15 @@ export default {
           })
         });
         this.lineSeries.setData(data["data"])
+      })
+    },
+
+    searchHandler() {
+      this.visibleProducts = []
+      this.products.forEach(item => {
+        if (item.toLowerCase().indexOf(this.searchTerm.toLowerCase()) != -1) {
+          this.visibleProducts.push(item)
+        }
       })
     }
   }

@@ -3,7 +3,7 @@
     <v-row>
       <v-col class="col-3">
         <v-card>
-          <v-text-field label="Search" single-line outlined v-model="searchTerm" @input="searchHandler">
+          <v-text-field label="Search" single-line outlined v-model="searchTerm" @input="searchHandler" clearable>
           </v-text-field>
           <v-virtual-scroll
             :items="visibleProducts"
@@ -109,12 +109,18 @@ export default {
     },
 
     searchHandler() {
-      this.visibleProducts = []
-      this.products.forEach(item => {
-        if (item.toLowerCase().indexOf(this.searchTerm.toLowerCase()) != -1) {
-          this.visibleProducts.push(item)
-        }
-      })
+      if (this.searchTerm == null || this.searchTerm == "") {
+        this.visibleProducts = this.products
+      }
+
+      else {
+        this.visibleProducts = []
+        this.products.forEach(item => {
+          if (item.toLowerCase().indexOf(this.searchTerm.toLowerCase()) != -1) {
+            this.visibleProducts.push(item)
+          }
+        })
+      }
     }
   }
 }

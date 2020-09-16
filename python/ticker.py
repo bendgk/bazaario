@@ -15,7 +15,7 @@ def get_bazar_listings():
 if __name__ == "__main__":
     #MongoDB setup
     client = MongoClient()
-    client = MongoClient('mongodb://localhost:27017/')
+    client = MongoClient('mongodb://python:!SuperPythonPassword@localhost:27017/')
     db = client["bazaar"]
 
     bazaar = db["listings"]

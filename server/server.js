@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 const MongoClient = require('mongodb').MongoClient
 var db
 var cols = []
-MongoClient.connect('mongodb://127.0.0.1:27017', (err, client) => {
+MongoClient.connect('mongodb://bendgk:!MyMongoDBPassword@127.0.0.1:27017/tickers', (err, client) => {
   if (err) return console.error(err)
   console.log('Connected to Database')
 

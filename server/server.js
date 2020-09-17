@@ -5,7 +5,7 @@ const port = 3000
 
 //headers
 app.use((req, res, next) => {
-  const allowedOrigins = ['http://127.0.0.1:8080', 'http://localhost:8080', 'http://127.0.0.1:9000', 'http://157.245.135.17:8080', 'http://bazaario.xyz', 'http://www.bazaario.xyz'];
+  const allowedOrigins = ['http://127.0.0.1:8080', 'http://localhost:8080', 'http://127.0.0.1:9000', 'http://157.245.135.17:8080', 'http://bazaario.xyz:8080', 'http://www.bazaario.xyz:8080'];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
        res.setHeader('Access-Control-Allow-Origin', origin);

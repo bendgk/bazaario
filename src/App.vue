@@ -101,10 +101,7 @@ export default {
 
         this.chart.removeSeries(this.lineSeries)
         this.lineSeries = this.chart.addLineSeries({
-        });
-
-        /*
-        autoscaleInfoProvider: () => ({
+          autoscaleInfoProvider: () => ({
             priceRange: {
               minValue: this.price - (this.price * .10),
               maxValue: this.price + (this.price * .10),
@@ -114,8 +111,8 @@ export default {
               above: 10,
               below: 10,
             }
-        })
-        */
+          })
+        });
         this.lineSeries.setData(data["data"])
       })
     },

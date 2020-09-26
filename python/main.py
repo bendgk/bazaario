@@ -4,14 +4,48 @@ import time
 if __name__ == "__main__":
     #MongoDB setup
     client = MongoClient()
-    client = MongoClient('mongodb://python:!SuperPythonPassword@localhost:27017/')
-    db = client["bazaar"]
+    #client = MongoClient('mongodb://python:!SuperPythonPassword@localhost:27017/')
 
+    #bazaar listings
+    db = client["bazaar"]
     bazaar = db["listings"]
     
-    #price ticker   (5s, 30s, 1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d)
-    ticker_db = client["tickers"]
-    last_updated = 0
+    #price ticker   (10s, 1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d)
+
+    tickers = {
+        '10s': (client["tickers_10s"], []),
+        '1m': (client["tickers_1m"], []),
+        '5m': (client["tickers_5m"], []),
+        '15m': (client["tickers_15m"], []),
+        '30m': (client["tickers_30m"], []),
+        '1h': (client["tickers_1h"], []),
+        '4h': (client["tickers_4h"], []),
+        '12h': (client["tickers_12h"], []),
+        '1d': (client["tickers_1d"], [])
+    }
+
+    u = input("Drop DBs? (y/n)")
+    if u.lower() == "y":
+        for k, v in tickers.items():
+            print(f"Dropping {k}_db!")
+            client.drop_database(v[0].name)
+            print(v[0].name)
+    
+    doc = bazaar.find_one()
+
+    #time setup
+    time_started = time.time()
+    last_updated = doc["lastUpdated"]
+
+    if int(time_started) > last_updated + 15:
+        print("Error: `ticker.py` is not running!\nexiting now...")
+        exit()
+
+    #todo pickup here
+    while True:
+        try:
+            doc = bazaar.find_one()b
+
 
     while True:
         try:
@@ -44,4 +78,4 @@ if __name__ == "__main__":
         except:
             pass
 
-        time.sleep(.1)
+        time.sleep(1)

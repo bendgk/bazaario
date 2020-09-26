@@ -16,8 +16,8 @@ if __name__ == "__main__":
     #MongoDB setup
     client = MongoClient()
     client = MongoClient('mongodb://python:!SuperPythonPassword@localhost:27017/')
-    db = client["bazaar"]
 
+    db = client["bazaar"]
     bazaar = db["listings"]
 
     if "listings" not in db.list_collection_names():
@@ -28,7 +28,12 @@ if __name__ == "__main__":
     else:
         doc_id = bazaar.find_one()['_id']
 
+    prev_listings = None
+
     while True:
         time.sleep(1)
         listings = get_bazar_listings()
-        bazaar.find_one_and_replace({"_id": doc_id}, listings)
+        
+        if listings != prev_listings
+            bazaar.find_one_and_replace({"_id": doc_id}, listings)
+            prev_listings = listings
